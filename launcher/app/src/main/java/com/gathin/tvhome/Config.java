@@ -36,6 +36,9 @@ final class Config {
     static final String SETTINGS_NAME = "launcher_settings";
     static final String ROWS_BELOW_DOCK_KEY = "rows_below_dock";
     static final String WALLPAPER_CHOICE_KEY = "wallpaper_choice";
+    static final String WALLPAPER_ROTATION_KEY = "wallpaper_rotation_minutes";
+    static final String WALLPAPER_DIM_KEY = "wallpaper_dim";
+    static final String SKY_INTENSITY_KEY = "sky_intensity";
     private static final String THEME_REVISION_NAME = "theme_revision";
     private static final String THEME_SIGNATURE_KEY = "theme_signature";
 
@@ -249,13 +252,22 @@ final class Config {
         if (chosenRows >= 0 && chosenRows <= 3) rowsBelow = chosenRows;
         animations = choices.getBoolean("animations", animations);
         advancedEffects = choices.getBoolean("advanced_effects", advancedEffects);
+        int chosenSky = choices.getInt(SKY_INTENSITY_KEY, skyIntensity);
+        if (chosenSky >= 0 && chosenSky <= 100) skyIntensity = chosenSky;
         File wallpaper = dir != null ? new File(dir, WALLPAPER_NAME) : null;
         if (wallpaper != null && !(wallpaper.isFile() && wallpaper.length() > 0)) wallpaper = null;
-        // A theme can also switch the wallpaper off while the file is still there.
-        boolean wallpaperEnabled = json == null || bool(json, "wallpaper", true);
-        if (!wallpaperEnabled) wallpaper = null;
         int rotationMinutes = json == null ? 0 : integer(json, "wallpaper_rotation_minutes", 0, 0, 1440);
         int wallpaperDim = json == null ? 0 : integer(json, "wallpaper_dim", 0, 0, 90);
+        // On-TV rotation and dim win over the theme's; this is read before the collection is listed below.
+        int chosenRotation = choices.getInt(WALLPAPER_ROTATION_KEY, rotationMinutes);
+        if (chosenRotation >= 0 && chosenRotation <= 1440) rotationMinutes = chosenRotation;
+        int chosenDim = choices.getInt(WALLPAPER_DIM_KEY, wallpaperDim);
+        if (chosenDim >= 0 && chosenDim <= 90) wallpaperDim = chosenDim;
+        // A theme can also switch the wallpaper off while the file is still there; a rotation chosen
+        // on the TV overrides that, like a wallpaper pick does.
+        boolean wallpaperEnabled = json == null || bool(json, "wallpaper", true)
+                || choices.getInt(WALLPAPER_ROTATION_KEY, 0) > 0;
+        if (!wallpaperEnabled) wallpaper = null;
         List<File> wallpapers = new ArrayList<>();
         if (rotationMinutes > 0 && dir != null && wallpaperEnabled) {
             wallpapers.addAll(WallpaperRotation.images(new File(dir, "wallpapers")));
@@ -334,11 +346,13 @@ final class Config {
             // explicit theme push or reset by the updated tools.
             SharedPreferences.Editor editor = choices.edit();
             if (!"absent".equals(token)) editor.remove("columns").remove("animations")
-                    .remove("advanced_effects").remove(ROWS_BELOW_DOCK_KEY).remove(WALLPAPER_CHOICE_KEY);
+                    .remove("advanced_effects").remove(ROWS_BELOW_DOCK_KEY).remove(WALLPAPER_CHOICE_KEY)
+                    .remove(WALLPAPER_ROTATION_KEY).remove(WALLPAPER_DIM_KEY).remove(SKY_INTENSITY_KEY);
             editor.putString(THEME_SIGNATURE_KEY, signature).commit();
         } else if (!seen.equals(signature)) {
             choices.edit().remove("columns").remove("animations").remove("advanced_effects")
                     .remove(ROWS_BELOW_DOCK_KEY).remove(WALLPAPER_CHOICE_KEY)
+                    .remove(WALLPAPER_ROTATION_KEY).remove(WALLPAPER_DIM_KEY).remove(SKY_INTENSITY_KEY)
                     .putString(THEME_SIGNATURE_KEY, signature).commit();
         }
     }

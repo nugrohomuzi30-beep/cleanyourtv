@@ -96,6 +96,24 @@ On the TV, Launcher settings has a Wallpaper row: pick one picture from the coll
 `wallpaper.jpg`), or None. A pick shows that one picture and stops the rotation until you choose Theme
 default, press Follow theme, or push a theme again.
 
+Launcher settings also sets, from the remote, how often the picture changes (Off, 1, 5, 15, 30 or 60
+minutes), the wallpaper dimming (0 to 60 percent) and the sky tint (0 to 100 percent). These win over
+`wallpaper_rotation_minutes`, `wallpaper_dim` and `sky_intensity` in `config.json`; a rotation above
+Off also turns the `wallpapers/` collection on. When the theme's own value falls between the choices
+(a dimming of 35, say), no choice is highlighted and a line under the row names the theme's value.
+
+"Import pictures from a folder…" copies pictures from a folder on the TV or from a flash drive
+(`/storage/XXXX-XXXX`) into the collection, so the drive can be unplugged afterwards. The first time,
+Android asks for storage access; browse to the folder with the remote and choose Replace existing or
+Add to existing. Pictures are scaled down to the screen size and saved as JPEG (quality 85) with a safe
+file name; the collection holds at most 100, and files over 10 MB or unreadable ones are skipped. When
+it finishes, a single-picture pick is dropped, and if nothing was rotating, the rotation is set to 15
+minutes.
+
+Pictures imported on the TV live in the same `wallpapers/` folder as a theme's collection, so
+`tools/theme.sh` deletes them all when it pushes a theme, and pushing or resetting a theme also clears
+the choices made in Launcher settings, including rotation, dimming and sky. Keep the originals.
+
 ## Reduced motion
 
 `"reduced_motion": true` keeps the look but calms the movement: the highlight spring is stiff instead

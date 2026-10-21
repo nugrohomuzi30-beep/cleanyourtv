@@ -67,6 +67,111 @@
             android:layout_marginTop="28dp" />
 
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="@string/wallpaper_rotation_label"
+            android:textColor="#FFFFFFFF"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView android:id="@+id/rotationOff" style="@style/SettingsColumnChoice" android:text="@string/off" />
+            <TextView android:id="@+id/rotation1" style="@style/SettingsColumnChoice" android:text="1" />
+            <TextView android:id="@+id/rotation5" style="@style/SettingsColumnChoice" android:text="5" />
+            <TextView android:id="@+id/rotation15" style="@style/SettingsColumnChoice" android:text="15" />
+            <TextView android:id="@+id/rotation30" style="@style/SettingsColumnChoice" android:text="30" />
+            <TextView android:id="@+id/rotation60" style="@style/SettingsColumnChoice" android:text="@string/wallpaper_rotation_60" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/rotationHint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:textColor="#FFACB8C1"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="@string/wallpaper_dim_label"
+            android:textColor="#FFFFFFFF"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView android:id="@+id/dim0" style="@style/SettingsColumnChoice" android:text="0" />
+            <TextView android:id="@+id/dim15" style="@style/SettingsColumnChoice" android:text="15" />
+            <TextView android:id="@+id/dim30" style="@style/SettingsColumnChoice" android:text="30" />
+            <TextView android:id="@+id/dim45" style="@style/SettingsColumnChoice" android:text="45" />
+            <TextView android:id="@+id/dim60" style="@style/SettingsColumnChoice" android:text="60" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/dimHint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:textColor="#FFACB8C1"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="@string/sky_label"
+            android:textColor="#FFFFFFFF"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView android:id="@+id/sky0" style="@style/SettingsColumnChoice" android:text="0" />
+            <TextView android:id="@+id/sky25" style="@style/SettingsColumnChoice" android:text="25" />
+            <TextView android:id="@+id/sky50" style="@style/SettingsColumnChoice" android:text="50" />
+            <TextView android:id="@+id/sky75" style="@style/SettingsColumnChoice" android:text="75" />
+            <TextView android:id="@+id/sky100" style="@style/SettingsColumnChoice" android:text="100" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/skyHint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:text="@string/sky_hint"
+            android:textColor="#FFACB8C1"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/wallpaperImportChoice"
+            style="@style/SettingsRow"
+            android:layout_marginTop="18dp"
+            android:text="@string/wallpaper_import" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:text="@string/wallpaper_import_hint"
+            android:textColor="#FFACB8C1"
+            android:textSize="14sp" />
+
+        <TextView
             android:id="@+id/animationsChoice"
             style="@style/SettingsRow"
             android:layout_marginTop="28dp" />
