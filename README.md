@@ -32,6 +32,12 @@ A personal fork of [Gathin23/cleanyourtv](https://github.com/Gathin23/cleanyourt
 - **Import pictures from a folder:** "Import pictures from a folder…" browses the TV's own storage and any USB drive (`/storage/XXXX-XXXX`) with the remote. It is there because many TVs ship without Android's folder picker. Pictures (jpg, png or webp, up to 100, 10 MB each) are copied into the launcher's `wallpapers/` collection, so the drive can be unplugged afterwards. You choose Add to existing (focused by default, so one press of OK never wipes the collection) or Replace existing. Each picture is resized to the screen, saved as JPEG and turned upright from its EXIF orientation. File names are made safe (A-Z, 0-9, `_`, `.`, `-`), which drops non-Latin characters. The first import asks for storage permission.
 - **Caveats:** `tools/theme.sh` empties the TV's `wallpapers/` collection before it pushes a theme, so imported pictures are lost; `adb pull` them first. A bus-powered USB hard disk may not get enough power from a TV port. A flash drive or a powered hub works better.
 
+The screens on the TV (Thai UI):
+
+| Wallpaper settings | Picking a folder | Add or replace |
+| --- | --- | --- |
+| ![Launcher settings: rotation, dimming and Sky chip rows under the Wallpaper row, with the Import pictures from a folder row below](docs/fork-wallpaper-settings.jpg) | ![The folder browser: Use this folder, up one level, and the subfolders](docs/fork-import-folder.jpg) | ![The import confirmation with Add to existing focused, Cancel and Replace existing](docs/fork-import-confirm.jpg) |
+
 ## How it works
 
 Android TVs have the same debug bridge as Android phones. Switch on USB debugging in the TV's
