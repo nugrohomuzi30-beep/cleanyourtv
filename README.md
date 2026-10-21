@@ -23,6 +23,15 @@
 > [@gathint, 17 October 2026](https://x.com/gathint/status/2111379569030939102). The replies are where
 > most of the TV lists here came from. The repo was called tv-vibehack until the 19th; old links work.
 
+## This fork
+
+A personal fork of [Gathin23/cleanyourtv](https://github.com/Gathin23/cleanyourtv), set up for a Xiaomi Mi TV (Android 10). Upstream is still the source of everything else in this README.
+
+- **Dock and grid:** the dock is translucent (about 15% fill in every mode), the grid has 7 apps per row, and the dock holds a custom set of apps: YouTube, Netflix, Disney+, Max and Prime Video.
+- **Wallpaper settings on the TV:** Launcher settings has chip rows for wallpaper rotation (Off, 1, 5, 15, 30 or 60 minutes), wallpaper dimming (0 to 60 %) and Sky (0 to 100 %). What you pick on the TV overrides the theme's `config.json`. Follow theme, or pushing or resetting a theme, clears those choices. When the theme's value falls between two chips (a dimming of 35, say), no chip is selected and the row says "Theme value: 35".
+- **Import pictures from a folder:** "Import pictures from a folder…" browses the TV's own storage and any USB drive (`/storage/XXXX-XXXX`) with the remote. It is there because many TVs ship without Android's folder picker. Pictures (jpg, png or webp, up to 100, 10 MB each) are copied into the launcher's `wallpapers/` collection, so the drive can be unplugged afterwards. You choose Add to existing (focused by default, so one press of OK never wipes the collection) or Replace existing. Each picture is resized to the screen, saved as JPEG and turned upright from its EXIF orientation. File names are made safe (A-Z, 0-9, `_`, `.`, `-`), which drops non-Latin characters. The first import asks for storage permission.
+- **Caveats:** `tools/theme.sh` empties the TV's `wallpapers/` collection before it pushes a theme, so imported pictures are lost; `adb pull` them first. A bus-powered USB hard disk may not get enough power from a TV port. A flash drive or a powered hub works better.
+
 ## How it works
 
 Android TVs have the same debug bridge as Android phones. Switch on USB debugging in the TV's
@@ -286,6 +295,7 @@ the install script finds `~/Android/Sdk` and the `java` on your PATH.
 - **On-TV launcher settings:** click Settings for the TV's system settings, or hold OK on Settings and choose Launcher settings to set 4, 5, 6 or 7 apps per row, turn animations on or off, and opt into advanced effects. The advanced option adds tile lift, icon zoom and smooth ambient-colour transitions; it may use more memory. Use Follow theme to clear on-TV choices. Pushing or resetting a theme also clears them.
 - **Change the default home:** Launcher settings and the optional Default-home tile (`show_home_settings_shortcut`) open Android's home picker. Choose the original launcher to stop using CleanYourTV as Home, or CleanYourTV to return. The original launcher must be enabled. If the install script disabled it, use the restore script below first. Some TVs provide no home picker.
 - **Themes** set the same keys plus a background colour and a wallpaper from a `config.json` pushed to the TV, no rebuild. Four ship in [`themes/`](themes/), documented there.
+- **Wallpaper rotation, dim, sky and picture import** can be set on the TV itself, including importing from a folder or USB drive. See [This fork](#this-fork).
 - **Language** follows the TV: English, German, Spanish, Catalan, French, Russian, Serbian (Latin), Polish, Czech, Portuguese, Turkish, Arabic, Hebrew, Simplified Chinese, Traditional Chinese (Taiwan), Thai, Finnish, Vietnamese, Bangla. Android 13+ can set it for the launcher alone: `tools/tv.py 'cmd locale set-app-locales com.gathin.tvhome --locales ca'`.
   Hebrew places the menu buttons on the left and the date and clock on the right, with the greeting above the clock. The Clock screensaver right-aligns its date and time, and Hebrew dates include the month prefix ב (for example, 19 באוקטובר). Hebrew dock and app-grid rows start on the right, with matching left/right remote navigation. The Hebrew input selector places icons and labels on the right, status on the left, and aligns the dropdown with the Inputs button’s right edge. Other languages keep their original layouts.
   Russian includes the module-card approval and management screens and the VPN-off badge.
