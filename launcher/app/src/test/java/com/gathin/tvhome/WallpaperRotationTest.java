@@ -34,6 +34,7 @@ public class WallpaperRotationTest {
         touch(dir, "a.png", 10);
         touch(dir, "notes.txt", 10);
         touch(dir, "empty.jpg", 0);
+        touch(dir, "._a.png", 10);
         new File(dir, "folder.jpg").mkdir();
         List<File> images = WallpaperRotation.images(dir);
         assertEquals(Arrays.asList("a.png", "b.JPG"), names(images));
