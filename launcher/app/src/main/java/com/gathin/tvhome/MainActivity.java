@@ -271,6 +271,34 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        // === CUACA & JAM CIMAHI - KARYA SENDIRI ===
+        try {
+            android.widget.TextView weatherView = findViewById(R.id.myWeather);
+            new Thread(new Runnable() {
+                public void run() {
+                    try {
+                        java.net.URL url = new java.net.URL("https://wttr.in/Cimahi?format=%25t+%25C");
+                        java.net.HttpURLConnection conn = (java.net.HttpURLConnection) url.openConnection();
+                        conn.setRequestProperty("User-Agent", "curl");
+                        conn.setConnectTimeout(5000);
+                        String data = new java.io.BufferedReader(new java.io.InputStreamReader(conn.getInputStream())).readLine();
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                weatherView.setText("Cimahi " + data);
+                            }
+                        });
+                    } catch (Exception e) {
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                weatherView.setText("Cimahi • offline");
+                            }
+                        });
+                    }
+                }
+            }).start();
+        } catch (Exception e) {}
+        
         setContentView(R.layout.activity_main);
         density = getResources().getDisplayMetrics().density;
         // config.xml, overlaid by config.json from a pushed theme (see Config and tools/theme.sh).
